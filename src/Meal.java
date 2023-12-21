@@ -9,6 +9,18 @@ class Meal {
         this.category = category;
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public String getCategory(){
+        return category;
+    }
+
+    public String[] getIngredients(){
+        return ingredients;
+    }
+
 }
 
 class Breakfast extends Meal {
