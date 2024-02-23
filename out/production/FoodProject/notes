@@ -1,0 +1,77 @@
+import java.sql.*;
+import java.util.Properties;
+
+public class Main {
+    public static void main(String[] args) {
+        // Load environment variables
+        String dbHost = System.getenv("DB_HOST");
+        String dbUsername = System.getenv("DB_USERNAME");
+        String dbPassword = System.getenv("DB_PASSWORD");
+        String dbName = System.getenv("DB_NAME");
+
+        // JDBC connection properties
+        Properties props = new Properties();
+        props.setProperty("user", dbUsername);
+        props.setProperty("password", dbPassword);
+        props.setProperty("useSSL", "true"); // Enable SSL
+
+        //database url
+        String url = "jdbc:mysql://" + dbHost + "/" + dbName;
+
+        addIngredient(url,props,1,"tomato");
+
+    }
+    static void addIngredient(String url, Properties props, int idIngredient, String ingName){
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, props);
+
+            // Execute query
+            String query =  "INSERT INTO Ingredient (id_ingredient, ing_name) VALUES (?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idIngredient);
+            statement.setString(2, ingName);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new ingredient was inserted successfully!");
+            }
+
+            // Close resources
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void showTables(String url, Properties props){
+
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, props);
+
+            // Execute query
+            Statement statement = connection.createStatement();
+            String query = "SHOW TABLES";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Display tables
+            if (resultSet.next()) {
+                System.out.println("Tables in the database:");
+                do {
+                    System.out.println("- " + resultSet.getString(1));
+                } while (resultSet.next());
+            } else {
+                System.out.println("Connected successfully. No tables found in the database.");
+            }
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
