@@ -19,4 +19,15 @@ class MealDictionary {
     public Meal removeMeal(String name){
         return mealDictionary.remove(name);
     }
+
+    public void printKeyset(){
+        for (String mealName : mealDictionary.keySet()) {
+            System.out.print(" - " + mealName);
+        }
+        System.out.print(" - ");
+    }
+
+    public boolean isEmpty(){
+        return mealDictionary.isEmpty();
+    }
 }

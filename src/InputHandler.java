@@ -39,6 +39,7 @@ public class InputHandler {
 
     static void addMeal(MealDictionary userName){
         Category cat = getInputCategory();
+
         String name = getInputMealName();
         userName.addMealToDict(Meal.setInputMeal(name, cat));
         Meal meal = userName.getMealFromDict(name);
@@ -48,39 +49,81 @@ public class InputHandler {
 
 
     static void removeMeal(MealDictionary userName){
-        System.out.println("Name the meal to be removed: ");
-        userInput();
-        while (true){
-            String name = scan.nextLine();
-            Meal removedMeal = userName.removeMeal(name);
-            if (removedMeal != null) {
-                System.out.println("Meal removed successfully.");
-                break;
-            } else {
-                System.out.println("Meal not found.");
+        if (userName.isEmpty()){
+            System.out.println("There are no meals in the planner");
+        } else {
+            System.out.println("Your meals: ");
+            userName.printKeyset();
+            System.out.println();
+            while (true) {
+                System.out.println("Name the meal to be removed: ");
+                userInput();
+                String name = scan.nextLine();
+                Meal removedMeal = userName.removeMeal(name);
+                if (removedMeal != null) {
+                    System.out.println("Meal removed successfully.");
+                    break;
+                } else {
+                    System.out.println("Meal not found.");
+                }
             }
         }
     }
+
+    static void showMeal(MealDictionary userName){
+        if (userName.isEmpty()){
+            System.out.println("There are no meals in the planner");
+        } else {
+            System.out.println("Your meals: ");
+            userName.printKeyset();
+            System.out.println();
+        }
+    }
+
+
 
     public enum Action{
-        A,R,C,X
+        S,A,R,C,X
     }
-    public static void chooseAction(Action action){
-        switch (action){
-            case A -> {
-                System.out.println("A");
+    private static Action chooseAction(){
+        printQuesitonAction();
+        while (true){
+            userInput();
+            String inputAction = scan.next();
+            scan.nextLine();
+            for (Action act : Action.values()){
+                if (act.name().equalsIgnoreCase(inputAction)){
+                    return act;
+                }
             }
-            case R -> {
-                System.out.println("R");
-            }
-            case C -> {
-                System.out.println("C");
-            }
-            case X -> {
-                System.out.println("X");
-            }
+            System.out.println( "Incorrect action, enter again: ");
         }
 
+    }
+
+    static void handleAction(MealDictionary userName){
+        while(true){
+            Action action = chooseAction();
+            switch (action){
+                case S -> {
+                    showMeal(userName);
+                }
+                case A -> {
+                    addMeal(userName);
+                }
+                case R -> {
+                    removeMeal(userName);
+                }
+                case C -> {
+                    System.out.println("C");
+                }
+                case X -> {
+                    System.out.println("EXITING MEAL PLANNER...");
+                    return;
+                }
+        }
+
+        }
     }
 
 

@@ -4,7 +4,7 @@ import java.util.Set;
 import static mess.DisplayMessg.userInput;
 
 enum Category{
-    BREAKFAST, LUNCH, DINNER, SNACK
+    B, L, D, S
 }
 
 class Meal {
@@ -40,10 +40,10 @@ class Meal {
 
     static Meal setInputMeal(String name, Category category) {
         return switch (category) {
-            case BREAKFAST -> new Breakfast(name);
-            case LUNCH -> new Lunch(name);
-            case DINNER -> new Dinner(name);
-            case SNACK -> new Snack(name);
+            case B -> new Breakfast(name);
+            case L -> new Lunch(name);
+            case D -> new Dinner(name);
+            case S -> new Snack(name);
         };
     }
 
@@ -61,25 +61,25 @@ class Meal {
 
 class Breakfast extends Meal {
     public Breakfast(String name) {
-        super(name, Category.BREAKFAST);
+        super(name, Category.B);
     }
 }
 
 class Lunch extends Meal {
     public Lunch(String name) {
-        super(name, Category.LUNCH);
+        super(name, Category.L);
     }
 }
 
 class Dinner extends Meal {
     public Dinner(String name) {
-        super(name, Category.DINNER);
+        super(name, Category.D);
     }
 }
 
 class Snack extends Meal {
     public Snack(String name){
-        super(name, Category.SNACK);
+        super(name, Category.S);
     }
 
 }
