@@ -10,7 +10,6 @@ public class Main {
         printTitle();
         MealDictionary MagdaMeals = new MealDictionary();
         InputHandler.handleAction(MagdaMeals);
-        //InputHandler.addMeal(MagdaMeals);
 
     }
 
