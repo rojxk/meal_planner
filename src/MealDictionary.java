@@ -30,4 +30,7 @@ class MealDictionary {
     public boolean isEmpty(){
         return mealDictionary.isEmpty();
     }
+    public boolean exists(String name){
+        return mealDictionary.containsKey(name);
+    }
 }

@@ -3,6 +3,10 @@ import static mess.DisplayMessg.*;
 public class InputHandler {
     private static final Scanner scan = new Scanner(System.in);
 
+    public enum Action{
+        S,A,R,C,X
+    }
+
     private static void makeIngredientList(Meal meal){
         System.out.println("List your ingredience: (press [x] to escape)");
         while(true){
@@ -39,12 +43,20 @@ public class InputHandler {
 
     static void addMeal(MealDictionary userName){
         Category cat = getInputCategory();
+        //nazwa już istnieje
+        while (true){
+            String name = getInputMealName();
+            if (userName.exists(name)){
+                System.out.println("Name already exists");
+            } else {
+                userName.addMealToDict(Meal.setInputMeal(name, cat));
+                Meal meal = userName.getMealFromDict(name);
+                makeIngredientList(meal);
+                System.out.println("The meal has been added!");
+                break;
+            }
 
-        String name = getInputMealName();
-        userName.addMealToDict(Meal.setInputMeal(name, cat));
-        Meal meal = userName.getMealFromDict(name);
-        makeIngredientList(meal);
-        System.out.println("The meal has been added!");
+        }
     }
 
 
@@ -80,11 +92,10 @@ public class InputHandler {
         }
     }
 
+    static void changeMeal(MealDictionary userName){
 
-
-    public enum Action{
-        S,A,R,C,X
     }
+
     private static Action chooseAction(){
         printQuesitonAction();
         while (true){

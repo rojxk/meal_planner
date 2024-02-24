@@ -1,8 +1,6 @@
 import java.util.HashSet;
 import java.util.Set;
 
-import static mess.DisplayMessg.userInput;
-
 enum Category{
     B, L, D, S
 }
