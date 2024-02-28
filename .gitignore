@@ -25,3 +25,5 @@ replay_pid*
 .env
 src/notes
 postgresql-42.7.2.jar
+mydbdata
+docker-compose.yml

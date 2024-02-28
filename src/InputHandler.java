@@ -4,7 +4,7 @@ public class InputHandler {
     private static final Scanner scan = new Scanner(System.in);
 
     public enum Action{
-        S,A,R,C,X
+        S,A,R,X
     }
 
     private static void makeIngredientList(Meal meal){
@@ -16,6 +16,7 @@ public class InputHandler {
                 break;
             } else {
                 meal.addIngredient(ingredient);
+
             }
         }
     }
@@ -43,7 +44,6 @@ public class InputHandler {
 
     static void addMeal(MealDictionary userName){
         Category cat = getInputCategory();
-        //nazwa już istnieje
         while (true){
             String name = getInputMealName();
             if (userName.exists(name)){
@@ -92,9 +92,17 @@ public class InputHandler {
         }
     }
 
-    static void changeMeal(MealDictionary userName){
+    // new feature
 
-    }
+//    static void changeMeal(MealDictionary userName){
+//        if (userName.isEmpty()){
+//            System.out.println("There are no meals in planner to be changed");
+//        } else {
+//            showMeal(userName);
+//
+//        }
+//
+//    }
 
     private static Action chooseAction(){
         printQuesitonAction();
@@ -124,9 +132,6 @@ public class InputHandler {
                 }
                 case R -> {
                     removeMeal(userName);
-                }
-                case C -> {
-                    System.out.println("C");
                 }
                 case X -> {
                     System.out.println("EXITING MEAL PLANNER...");
