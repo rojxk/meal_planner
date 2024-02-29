@@ -1,7 +1,9 @@
+package model;
+
 import java.util.HashMap;
 import java.util.Map;
 
-class MealDictionary {
+public class MealDictionary {
     Map<String, Meal> mealDictionary;
 
     public MealDictionary(){

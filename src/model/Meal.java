@@ -1,3 +1,5 @@
+package model;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +48,7 @@ class Meal {
     }
 
     public static void printMeal(Meal meal) {
-        System.out.println("Meal: " + meal.getName()+ "\n" + "(Category: " + meal.getCategory() + ")");
+        System.out.println("model.Meal: " + meal.getName()+ "\n" + "(model.Category: " + meal.getCategory() + ")");
         System.out.println("Ingredients:");
         for (String ingredient : meal.getIngredients()) {
             System.out.println("- " + ingredient);

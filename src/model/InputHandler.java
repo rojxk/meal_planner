@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Scanner;
 import static mess.DisplayMessg.*;
 public class InputHandler {
@@ -73,10 +75,10 @@ public class InputHandler {
                 String name = scan.nextLine();
                 Meal removedMeal = userName.removeMeal(name);
                 if (removedMeal != null) {
-                    System.out.println("Meal removed successfully.");
+                    System.out.println("model.Meal removed successfully.");
                     break;
                 } else {
-                    System.out.println("Meal not found.");
+                    System.out.println("model.Meal not found.");
                 }
             }
         }
@@ -94,7 +96,7 @@ public class InputHandler {
 
     // new feature
 
-//    static void changeMeal(MealDictionary userName){
+//    static void changeMeal(model.MealDictionary userName){
 //        if (userName.isEmpty()){
 //            System.out.println("There are no meals in planner to be changed");
 //        } else {

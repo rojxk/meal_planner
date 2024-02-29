@@ -1,6 +1,8 @@
 package database;
+import model.MealDictionary;
+
 class Database {
-    static void show(){
+    static void showMeals(MealDictionary username){
 
     }
 }
