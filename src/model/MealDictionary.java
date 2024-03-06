@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class MealDictionary {
     Map<String, Meal> mealDictionary;
+    private Userdata user;
 
-    public MealDictionary(){
+    public MealDictionary(Userdata user){
         this.mealDictionary = new HashMap<>();
+        this.user = user;
     }
 
     public void addMealToDict(Meal meal){

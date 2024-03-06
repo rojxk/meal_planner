@@ -3,7 +3,7 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-enum Category{
+public enum Category{
     B, L, D, S
 }
 

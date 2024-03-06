@@ -38,7 +38,7 @@ public class InputHandler {
         }
     }
 
-    private static String getInputMealName(){
+    public static String getInputMealName(){
         printQuestionName();
         userInput();
         return scan.nextLine();
