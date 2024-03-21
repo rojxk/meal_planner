@@ -30,7 +30,7 @@ public class Database {
     }
 
     private static boolean checkUsername(String username){
-        String sql = "SELECT EXISTS ( SELECT 1 FROM userdata WHERE user_name = ?";
+        String sql = "SELECT EXISTS ( SELECT 1 FROM userdata WHERE user_name = ?)";
         try (Connection conn = DatabaseConnector.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1,username);
@@ -43,7 +43,7 @@ public class Database {
     }
 
     public static void setUser(String username){
-        if (Database.checkUser(username) == 0){
+        if (Database.checkUsername(username)){
             String sql = "INSERT INTO Userdata (user_name) VALUES (?)";
             try (Connection conn = DatabaseConnector.connect();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -60,29 +60,6 @@ public class Database {
         }
 
     }
-    public static int getUserId(String username){
-        String selectSql = "SELECT id_user FROM Userdata WHERE user_name = ?";
-        try (Connection conn = DatabaseConnector.connect();
-             PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
-
-            selectStmt.setString(1,username);
-            ResultSet rs = selectStmt.executeQuery();
-
-            if (rs.next()) {
-                // Return the existing user's ID
-                return rs.getInt("id_user");
-            } else {
-                // Print message if no user found
-                System.out.println("No user found with the username: " + username);
-                // Return null or any other indicator that the user was not found
-                return 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
 
 
     public static void selectAllFromCategory() {
@@ -100,5 +77,33 @@ public class Database {
         } catch (SQLException e) {
             System.err.println("Error executing SELECT query: " + e.getMessage());
         }
+    }
+
+    public static int addToMealTable(String mealName, int categoryID, int userID) {
+        int idMeal = 0;
+        String queryAdd = "INSERT INTO Meal (meal_name, id_category, id_user) VALUES (?,?,?)";
+        String queryGet = "SELECT id_meal FROM Meal WHERE id_user = ? AND meal_name = ?";
+        try (Connection conn = DatabaseConnector.connect();
+             PreparedStatement pstmt1 = conn.prepareStatement(queryAdd)) {
+            pstmt1.setString(1, mealName);
+            pstmt1.setInt(2, categoryID);
+            pstmt1.setInt(3, userID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try (Connection conn = DatabaseConnector.connect();
+             PreparedStatement pstmt = conn.prepareStatement(queryGet);
+             ResultSet rs = pstmt.executeQuery()) {
+            idMeal = rs.getInt(1);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return idMeal;
+    }
+
+    public static void addToIngrTable(){
+
     }
 }

@@ -3,9 +3,7 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-public enum Category{
-    B, L, D, S
-}
+
 
 class Meal {
     private String name;
