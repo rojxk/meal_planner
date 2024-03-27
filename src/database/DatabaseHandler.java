@@ -11,24 +11,28 @@ public class DatabaseHandler {
 
     private static final Scanner scan = new Scanner(System.in);
 
-    private static void addMealDB(Userdata user){
+    public static void addMealDB(Userdata user){
         int categoryID = getInputCategoryDB();
+        int mealID;
         while (true){
             String name = InputHandler.getInputMealName();
             if(Database.checkMealName(user.getUsername(),name)){
                 System.out.println("Name already exists!");
             } else{
-                //add meal to database (id_meal, meal_name, cathegory,id_user
-                //Database.newMeal(String name, int cathegory,
-                int mealID = Database.addToMealTable(name,categoryID, user.getIdUser());
-
+                mealID = Database.addToMealTable(name,categoryID, user.getIdUser());
+                break;
             }
-
-
-
         }
-        //metod is adding ingredience to given meal of a user
-        //insert into Ingredients (id_meal, ingr_name) VALUES (...)
+        System.out.println("List your ingredience: (press [x] to escape)");
+        while(true){
+            userInput();
+            String ingredient = scan.nextLine();
+            if("x".equalsIgnoreCase(ingredient)){
+                break;
+            } else {
+                Database.addToIngrTable(mealID, ingredient);
+            }
+        }
     }
 
     private static int getInputCategoryDB() {
@@ -39,22 +43,17 @@ public class DatabaseHandler {
             scan.nextLine();
             for(Category category : Category.values()){
                 if (category.name().equalsIgnoreCase(inputCategory)) {
-                    return Database.categoryId(category);
+                    return category.getDbCategory();
                 }
             }
             System.out.println("Incorrect category, enter again:");
         }
     }
 
-    private static void addMealNameDB(){
-        //metod gets an input from user and puts it into the database
-    }
-
-    //metod checking if name of meal exists
-    //
 
     private static void removeMealDB(){
         //method removes meal from db
+
     }
 
 

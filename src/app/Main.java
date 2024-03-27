@@ -2,6 +2,7 @@ package app;
 
 import database.DatabaseConnector;
 import database.Database;
+import database.DatabaseHandler;
 import model.Userdata;
 
 import static mess.DisplayMessg.*;
@@ -18,6 +19,8 @@ public class Main {
         //DatabaseConnector.doDatabaseOperation2();
         Database.selectAllFromCategory();
         //model.MealDictionary MagdaMeals = new model.MealDictionary(new Userdata(1,"Madzia"));
+
+        DatabaseHandler.addMealDB(new Userdata(1,"Madzia"));
 
 
 
