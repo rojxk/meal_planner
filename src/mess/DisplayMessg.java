@@ -16,5 +16,8 @@ public class DisplayMessg{
     public static void printQuesitonAction(){
         System.out.println(Messages.qAction);
     }
+    public static void printQuesitonShow(){
+        System.out.println(Messages.qShow);
+    }
 
 }

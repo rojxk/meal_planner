@@ -15,12 +15,8 @@ public class Main {
         //model.MealDictionary MagdaMeals = new model.MealDictionary();
         //model.InputHandler.handleAction(MagdaMeals);
         //System.out.println(Database.getUserId("Madzia"));
-        //DatabaseConnector.doDatabaseOperation();
-        //DatabaseConnector.doDatabaseOperation2();
-        Database.selectAllFromCategory();
-        //model.MealDictionary MagdaMeals = new model.MealDictionary(new Userdata(1,"Madzia"));
 
-        DatabaseHandler.addMealDB(new Userdata(1,"Madzia"));
+        DatabaseHandler.handleActionDB(new Userdata(1,"Madzia"));
 
 
 

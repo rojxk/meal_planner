@@ -1,6 +1,7 @@
 package database;
 import model.MealDictionary;
 import model.Category;
+import model.Userdata;
 
 import java.sql.*;
 
@@ -12,6 +13,13 @@ public class Database {
         return DatabaseUtils.executeQuery(sql, pstmt -> {
             pstmt.setString(1, username);
             pstmt.setString(2, mealName);
+        }, rs -> rs.next() && rs.getBoolean(1));
+    }
+
+    public static boolean checkMeals(String username){
+        String sql = "SELECT EXISTS (SELECT 1 FROM Meal JOIN Userdata U ON Meal.id_user = U.id_user WHERE U.user_name = ?)";
+        return DatabaseUtils.executeQuery(sql, pstmt -> {
+            pstmt.setString(1, username);
         }, rs -> rs.next() && rs.getBoolean(1));
     }
 
@@ -82,7 +90,23 @@ public class Database {
         if (affectedRows == 0) {
             throw new RuntimeException("Inserting user failed, no rows affected.");
         }
+    }
 
+    public static boolean deleteFromMealTable(String mealName, int userID){
+        String sql = "DELETE FROM Meal WHERE meal_name = ? AND id_user = ?";
+
+        try (Connection conn = DatabaseConnector.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, mealName);
+            pstmt.setInt(2, userID);
+
+            int affectedRows = pstmt.executeUpdate();
+
+            // Return true if the meal was successfully deleted
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting meal", e);
+        }
     }
 
     public static void selectAllFromCategory() {
@@ -101,4 +125,30 @@ public class Database {
             System.err.println("Error executing SELECT query: " + e.getMessage());
         }
     }
+
+    public static void showAllMeals(Userdata user) {
+        String query = "SELECT meal_name FROM Meal m JOIN userdata u ON m.id_user = u.id_user WHERE u.user_name = ?";
+
+        // Execute the query and process the result set to print meal names
+        DatabaseUtils.executeQueryWithHandler(query, pstmt -> {
+            pstmt.setString(1, user.getUsername());
+        }, rs -> {
+            // This is where you handle each row of the result set
+            String mealName = rs.getString("meal_name");
+            System.out.print(" - "+ mealName); // Print the meal name
+        });
+        System.out.println(" - ");
+    }
+
+    public static void showwIngr(Userdata user, String mealName){
+        String query = "SELECT ingr_name FROM Ingreidients I JOIN Meal m ON I.id_meal = m.id_meal JOIN Userdata u ON m.id_user = u.id_user WHERE id_user = ? AND meal_name = ?";
+        DatabaseUtils.executeQueryWithHandler(query, pstmt -> {
+            pstmt.setInt(1,user.getIdUser());
+            pstmt.setString(2,mealName);
+        }, rs -> {
+            String ingrName = rs.getString("ingr_name");
+            System.out.println(" - " + ingrName);
+        });
+    }
+
 }

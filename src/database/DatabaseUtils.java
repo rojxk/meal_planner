@@ -26,4 +26,18 @@ public class DatabaseUtils {
         }
     }
 
+    public static void executeQueryWithHandler(String sql, PreparedStatementSetter pss, ResultSetHandler rsh) {
+        try (Connection conn = DatabaseConnector.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pss.setParameters(pstmt);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    rsh.handle(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

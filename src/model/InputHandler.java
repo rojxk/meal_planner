@@ -5,7 +5,7 @@ import static mess.DisplayMessg.*;
 public class InputHandler {
     private static final Scanner scan = new Scanner(System.in);
 
-    public enum Action{
+    enum Action{
         S,A,R,X
     }
 
@@ -139,8 +139,7 @@ public class InputHandler {
                     System.out.println("EXITING MEAL PLANNER...");
                     return;
                 }
-        }
-
+            }
         }
     }
 }
