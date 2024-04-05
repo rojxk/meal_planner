@@ -4,7 +4,6 @@ import model.InputHandler;
 import model.MealDictionary;
 import model.Userdata;
 
-import javax.xml.crypto.Data;
 import java.util.Scanner;
 
 import static mess.DisplayMessg.*;
