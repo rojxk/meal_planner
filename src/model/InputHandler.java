@@ -122,7 +122,7 @@ public class InputHandler {
 
     }
 
-    static void handleAction(MealDictionary userName){
+    public static void handleAction(MealDictionary userName){
         while(true){
             Action action = chooseAction();
             switch (action){
