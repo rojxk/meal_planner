@@ -63,8 +63,6 @@ public class DatabaseHandler {
 
 
     private static void removeMealDB(Userdata user){
-        //method removes meal from db
-        // show meals in database
         if (!Database.checkMeals(user.getUsername())){
             System.out.println("There are no meals in the planner");
         } else {

@@ -101,9 +101,7 @@ public class InputHandler {
 //            System.out.println("There are no meals in planner to be changed");
 //        } else {
 //            showMeal(userName);
-//
 //        }
-//
 //    }
 
     private static Action chooseAction(){

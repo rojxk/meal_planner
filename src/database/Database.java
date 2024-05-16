@@ -1,6 +1,4 @@
 package database;
-import model.MealDictionary;
-import model.Category;
 import model.Userdata;
 
 import java.sql.*;
@@ -101,8 +99,6 @@ public class Database {
             pstmt.setInt(2, userID);
 
             int affectedRows = pstmt.executeUpdate();
-
-            // Return true if the meal was successfully deleted
             return affectedRows > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting meal", e);
@@ -116,7 +112,6 @@ public class Database {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                // Assuming 'id' and 'name' as columns in your 'category' table
                 int id = rs.getInt("id_category");
                 String name = rs.getString("category_name");
                 System.out.println("ID: " + id + ", Name: " + name);
@@ -133,14 +128,14 @@ public class Database {
         DatabaseUtils.executeQueryWithHandler(query, pstmt -> {
             pstmt.setString(1, user.getUsername());
         }, rs -> {
-            // This is where you handle each row of the result set
+            // Handle each row of the result set
             String mealName = rs.getString("meal_name");
             System.out.print(" - "+ mealName); // Print the meal name
         });
         System.out.println(" - ");
     }
 
-    public static void showwIngr(Userdata user, String mealName){
+    public static void showIngr(Userdata user, String mealName){
         String query = "SELECT ingr_name FROM Ingreidients I JOIN Meal m ON I.id_meal = m.id_meal JOIN Userdata u ON m.id_user = u.id_user WHERE id_user = ? AND meal_name = ?";
         DatabaseUtils.executeQueryWithHandler(query, pstmt -> {
             pstmt.setInt(1,user.getIdUser());
