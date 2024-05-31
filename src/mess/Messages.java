@@ -8,4 +8,3 @@ public class Messages {
     public final static String qShow = "What do you want to do? [s]how ingredients, [b]ack to menu";
 
 }
-
